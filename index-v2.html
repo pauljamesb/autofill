@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+      <meta charset="utf-8">
+    </head>
+
+    <style>
+        .tempBtn {
+          width: 200px;
+          padding: 10px;
+          background-color: #333333;
+          color: #FFFFFF;
+          cursor: pointer;
+        }
+    </style>
+    <body>
+          <p>Autofill test</p>
+          <p>Master</p>
+          <label>Alumni number</label>
+          <input type="text" id="alumniNumMaster">
+          <p></p>
+          <label>Full name</label>
+          <input type="text" id="fullNameMaster">
+
+          <div class="tempBtn" id="myBtn">Go</div>
+
+          <hr />
+
+          <p>Copy</p>
+          <label>Alumni number (copy)</label>
+          <input type="text" id="alumniNumCopy">
+          <p></p>
+          <label>Full name(copy)</label>
+          <input type="text" id="fullNameCopy">
+
+
+      <script>
+
+          // Init on start
+          document.cookie = "myNewCookie4=Null" + ";" + ";path=/";
+
+
+          var alumniNumMaster = document.getElementById("alumniNumMaster");
+          var fullNameMaster = document.getElementById("fullNameMaster");
+          var alumniNumCopy = document.getElementById("alumniNumCopy");
+          var fullNameCopy = document.getElementById("fullNameCopy");
+          var myBtn = document.getElementById("myBtn");
+
+
+
+          function setCookie(cname, cvalue, exdays) {
+              var d = new Date();
+              d.setTime(d.getTime() + (exdays*24*60*60*1000));
+              var expires = "expires="+ d.toUTCString();
+              document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+          }
+
+
+          function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+              }
+            }
+            return "";
+          }
+
+
+          myBtn.addEventListener("click", saveFormData);
+
+
+          function saveFormData() {
+              setCookie("myNewCookie4", "PaulB5", 3);
+              var initAlumVal = getCookie("myNewCookie4");
+              alumniNumCopy.value = initAlumVal;
+             // console.log(getCookie("myNewCookie4"));
+           }
+
+          //console.log(getCookie("myNewCookie3"));
+
+          // when page loads
+          var initAlumVal = getCookie("myNewCookie4");
+          alumniNumCopy.value = initAlumVal;
+
+
+
+      </script>
+    </body>
+</html>
